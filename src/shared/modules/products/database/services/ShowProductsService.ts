@@ -17,5 +17,6 @@ export default class ShowProductService{
       throw new AppError('Product not found.',404);
     }
 
+    return product
   }
 }
