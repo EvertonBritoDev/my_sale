@@ -1,9 +1,9 @@
-import ListProductService from "../database/services/ListProductService";
-import { Request,response,Response } from "express";
-import ShowProductService from "../database/services/ShowProductsService";
-import CreateProductService from "../database/services/CreatProductService";
-import UpdateProductService from "../database/services/UpdateProductService";
-import DeleteProductService from "../database/services/DeleteProductService";
+import ListProductService from "../services/ListProductService";
+import { Request, Response } from "express";
+import ShowProductService from "../services/ShowProductsService";
+import CreateProductService from "../services/CreatProductService";
+import UpdateProductService from "../services/UpdateProductService";
+import DeleteProductService from "../services/DeleteProductService";
 
 export default class ProductsControllers{
   async index(request:Request,response: Response): Promise<Response>{
@@ -18,12 +18,18 @@ export default class ProductsControllers{
     return response.json(products);
   }
 
-  async create(request:Request,response: Response): Promise<Response>{
-    const {name, price, quantity} = request.body;
-    const createProductService = new CreateProductService();
-    const products = await createProductService.execute({name, price, quantity});
+  async create(request:Request,response: Response): Promise<any>{
+    try {
+      const {name, price, quantity} = request.body;
+      const createProductService = new CreateProductService();
+      const products = await createProductService.execute({name, price, quantity});
 
-    return response.json(products)
+      return response.json(products)
+
+    } catch (error) {
+      console.log('erro dentro do create',error)
+    }
+
   }
 
   async update(request:Request,response: Response): Promise<Response>{

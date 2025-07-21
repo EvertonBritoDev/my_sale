@@ -8,4 +8,5 @@ export const productRepositories = AppDataSource.getRepository(Product).extend({
   async findById(id:string): Promise<Product | null>{
     return this.findOneBy({id})
   }
-})
+
+});

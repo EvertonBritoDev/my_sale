@@ -1,7 +1,7 @@
 import { NumericType } from "typeorm"
-import { productRepositories } from "../repositories/ProductsRepositories"
+import { productRepositories } from "../database/repositories/ProductsRepositories"
 import AppError from "@shared/errors/AppError"
-import { Product } from "../entities/Product"
+import { Product } from "../database/entities/Product"
 
 
 interface IShowProduct{
