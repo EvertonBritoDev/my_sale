@@ -11,18 +11,21 @@ interface IUpdateUserAvatar{
 }
 
 export default class UpdateUserAvatarService{
-  async execute({userId, avatarFileName}:IUpdateUserAvatar):Promise<any>{ // any change to User
+  async execute({userId, avatarFileName}:IUpdateUserAvatar):Promise<User>{
 
-    try {
-      const user = await usersRepositories.findById(userId);
-
+    const user = await usersRepositories.findById(userId);
+    console.log('not if',user)
     if(!user){
       throw new AppError('User not found.',404);
     }
-
+    console.log('not if',user)
     if(user.avatar){
       const userAvatarFilePath = path.join(uploadconfig.directory, user.avatar);
+          console.log(userAvatarFilePath)
+
       const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
+          console.log(userAvatarFileExists)
+
       if(userAvatarFileExists){
         await fs.promises.unlink(userAvatarFilePath);
       }
@@ -31,9 +34,6 @@ export default class UpdateUserAvatarService{
     user.avatar = avatarFileName;
     await usersRepositories.save(user);
     return user
-    } catch (error) {
-      console.log('UpdateUserAvatarService',error)
-    }
 
   }
 }
