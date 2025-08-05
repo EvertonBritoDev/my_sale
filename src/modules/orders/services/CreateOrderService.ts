@@ -43,7 +43,7 @@ export class CreateOrderService{
     });
     //console.log(quantityAvailable,'qtd')
 
-    if(!quantityAvailable.length){
+    if(quantityAvailable.length){
       throw new AppError (
         `The quantity is not available `, 409,
       )
