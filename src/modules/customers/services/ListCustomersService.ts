@@ -21,6 +21,5 @@ export default class ListCustomerService{
       next_page: page < totalPages ? page + 1 : null,
       previous_page: page > 1 ? page - 1 : null
     } as IPagination<Customers>
-
   }
 }
