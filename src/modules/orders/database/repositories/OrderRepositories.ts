@@ -5,7 +5,13 @@ import { Ordersproducts } from "../entities/OrderProducts";
 
 interface ICreateOrder{
   customer: Customers;
-  products: Ordersproducts[];
+  products: ICreateOrderProducts[];
+}
+
+export interface ICreateOrderProducts{
+  product_id: string;
+  price: number;
+  quantity: number;
 }
 
 export const orderRepositories = AppDataSource.getRepository(Order).extend({

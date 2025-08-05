@@ -1,5 +1,6 @@
 import { AppDataSource } from "@shared/typeorm/data-source";
-import Customers from "../entities/customers";
+import { Customers } from "../entities/customers";
+
 
 export const customerRepository = AppDataSource.getRepository(Customers).extend({
 
