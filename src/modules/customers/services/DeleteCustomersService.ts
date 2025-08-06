@@ -1,5 +1,4 @@
 import AppError from "@shared/errors/AppError";
-import Customers from "../database/entities/customers";
 import { customerRepository } from "../database/repositories/CustomersRepositories";
 
 interface IDeleteCustomer{
