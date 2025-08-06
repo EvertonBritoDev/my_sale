@@ -1,6 +1,7 @@
 import AppError from "@shared/errors/AppError";
 import { Product } from "../database/entities/Product";
 import { productRepositories } from "../database/repositories/ProductsRepositories";
+import RedisCache from "@shared/cache/RedisCache";
 interface ICreateProduct{
   name: string,
   price: number,
@@ -10,6 +11,7 @@ interface ICreateProduct{
 export default class CreateProductService {
   async execute({name,price,quantity}:ICreateProduct): Promise<Product>{
     const productExists = await productRepositories.findByName(name)
+    const redisCache = new RedisCache();
     if(productExists){
       throw new AppError('There is already one product whith this name',409);
     }
@@ -20,6 +22,7 @@ export default class CreateProductService {
     })
 
     await productRepositories.save(product)
+    await redisCache.invalidate('api-mysales-PRODUCT_LIST')
 
     return product
   }
